@@ -12,8 +12,9 @@ class ProductsGrid extends StatelessWidget {
       padding: const EdgeInsets.all(10.0),
       itemCount: products.length,
       // ignore: missing_required_param
-      itemBuilder: (ctx, i) => ChangeNotifierProvider(
-        builder: (ctx) => products[i],
+      itemBuilder: (ctx, i) => ChangeNotifierProvider.value(
+        value: products[i],
+        // builder: (ctx) => products[i],
         child: ProductItem(
         // products[i].id,
         // products[i].title,
