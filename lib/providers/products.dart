@@ -6,21 +6,21 @@ import './product.dart';
 
 class Products with ChangeNotifier {
   List<Product> _items = [
-    Product(
-      id: 'p1',
-      title: 'Red Shirt',
-      description: 'A red shirt - it is pretty red!',
-      price: 29.99,
-      imageUrl:
-          'https://cdn.pixabay.com/photo/2016/10/02/22/17/red-t-shirt-1710578_1280.jpg',
-    ),
-    Product(
-        id: 'p2',
-        title: 'Trousers',
-        description: 'A nice pair of trousers.',
-        price: 59.99,
-        imageUrl:
-            'https://images-na.ssl-images-amazon.com/images/I/81t1RJtrHDL._UL1500_.jpg'),
+    // Product(
+    //   id: 'p1',
+    //   title: 'Red Shirt',
+    //   description: 'A red shirt - it is pretty red!',
+    //   price: 29.99,
+    //   imageUrl:
+    //       'https://cdn.pixabay.com/photo/2016/10/02/22/17/red-t-shirt-1710578_1280.jpg',
+    // ),
+    // Product(
+    //     id: 'p2',
+    //     title: 'Trousers',
+    //     description: 'A nice pair of trousers.',
+    //     price: 59.99,
+    //     imageUrl:
+    //         'https://images-na.ssl-images-amazon.com/images/I/81t1RJtrHDL._UL1500_.jpg'),
   ];
 
   // var _showFavoritesOnly = false;
@@ -53,7 +53,21 @@ class Products with ChangeNotifier {
     const url = 'https://flutter-learning-7f104.firebaseio.com/products.json';
     try {
       final response = await http.get(url);
-      print(json.decode(response.body));
+      final extractedData = json.decode(response.body) as Map<String, dynamic>;
+      final List<Product> loadedProducts = [];
+      extractedData.forEach((prodId, prodData) {
+        loadedProducts.add(Product(
+          id: prodId,
+          title: prodData['title'],
+          description: prodData['description'],
+          price: prodData['price'],
+          isFavorite: prodData['isFavorite'],
+          imageUrl: prodData['imageUrl'],
+        ));
+      });
+      _items = loadedProducts;
+      notifyListeners();
+      // print(json.decode(response.body));
     } catch (error) {
       throw error;
     }
