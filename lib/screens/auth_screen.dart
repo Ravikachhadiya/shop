@@ -62,6 +62,7 @@ class AuthScreen extends StatelessWidget {
                       child: Text(
                         'MyShop',
                         style: TextStyle(
+                          // ignore: deprecated_member_use
                           color: Theme.of(context).accentTextTheme.title.color,
                           fontSize: 50,
                           fontFamily: 'Anton',

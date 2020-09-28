@@ -26,6 +26,9 @@ class Products with ChangeNotifier {
   ];
 
   // var _showFavoritesOnly = false;
+  final String authToken;
+
+  Products(this.authToken, this._items);
 
   List<Product> get items {
     // if (_showFavoritesOnly) {
@@ -52,7 +55,8 @@ class Products with ChangeNotifier {
   //   notifyListeners();
   // }
   Future<void> fetchAndSetProducts() async {
-    const url = 'https://flutter-learning-7f104.firebaseio.com/products.json';
+    final url =
+        'https://flutter-learning-7f104.firebaseio.com/products.json?auth=$authToken';
     try {
       final response = await http.get(url);
       final extractedData = json.decode(response.body) as Map<String, dynamic>;
@@ -65,7 +69,7 @@ class Products with ChangeNotifier {
           id: prodId,
           title: prodData['title'],
           description: prodData['description'],
-          price: double.parse(prodData['price']),
+          price: prodData['price'],
           isFavorite: prodData['isFavorite'],
           imageUrl: prodData['imageUrl'],
         ));
