@@ -38,8 +38,13 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider.value(
           value: Cart(),
         ),
-        ChangeNotifierProvider.value(
-          value: Orders(),
+        // ignore: missing_required_param
+        ChangeNotifierProxyProvider<Auth, Orders>(
+          // ignore: deprecated_member_use
+          builder: (ctx, auth, previousOrders) => Orders(
+            auth.token,
+            previousOrders == null ? [] : previousOrders.orders,
+          ),
         ),
       ],
       child: Consumer<Auth>(
