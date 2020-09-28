@@ -32,6 +32,7 @@ class MyApp extends StatelessWidget {
           // ignore: deprecated_member_use
           builder: (ctx, auth, previousProducts) => Products(
             auth.token,
+            auth.userId,
             previousProducts == null ? [] : previousProducts.items,
           ),
         ),
