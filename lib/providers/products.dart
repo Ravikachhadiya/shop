@@ -65,7 +65,7 @@ class Products with ChangeNotifier {
           id: prodId,
           title: prodData['title'],
           description: prodData['description'],
-          price: prodData['price'],
+          price: double.parse(prodData['price']),
           isFavorite: prodData['isFavorite'],
           imageUrl: prodData['imageUrl'],
         ));
