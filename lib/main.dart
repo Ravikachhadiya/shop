@@ -44,6 +44,7 @@ class MyApp extends StatelessWidget {
           // ignore: deprecated_member_use
           builder: (ctx, auth, previousOrders) => Orders(
             auth.token,
+            auth.userId,
             previousOrders == null ? [] : previousOrders.orders,
           ),
         ),
